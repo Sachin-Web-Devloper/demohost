@@ -20,24 +20,16 @@
             overflow-x: hidden;
             min-height: 100vh;
             position: relative;
-            /* Single top-to-bottom gradient for the entire page */
-            background:linear-gradient(-45deg,#b00000, #000000, #b00000,  #4158D0);
+            background: linear-gradient(-45deg, #b00000, #000000, #b00000, #4158D0);
             background-size: cover;
             animation: bg 12s ease infinite;
         }
         @keyframes bg {
-            0%{
-                background-position: 0% 50%;
-            }
-            50%{
-                background-position: 100% 100%;
-            }
-           100%{
-                background-position: 0% 50%;
-            }
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 50%; }
         }
 
-        /* Adding noise effect */
         body::before {
             content: "";
             position: absolute;
@@ -78,8 +70,7 @@
             top: 0;
             left: 0;
             z-index: 1000;
-            background: #FFFFFF;
-            opacity: 20%;
+            background: rgba(255, 255, 255, 0.15); /* Changed to rgba for background opacity only */
             backdrop-filter: blur(10px);
         }
 
@@ -88,17 +79,25 @@
             font-weight: bold;
             color: black;
         }
+        .op {
+            color: #000;
+            font-weight: bolder;
+        }
 
         .nav-links {
             display: flex;
             gap: 25px;
         }
 
+        .nav-links.active {
+            display: flex;
+        }
+
         .nav-links a {
             color: black;
             font-weight: bolder;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 20px;
             transition: color 0.3s;
             padding: 8px 12px;
             border-radius: 8px;
@@ -108,7 +107,16 @@
             background: rgba(255, 255, 255, 0.1);
         }
 
-        /* Section-specific styling */
+        .hamburger {
+            display: none;
+            font-size: 24px;
+            background: none;
+            border: none;
+            color: black;
+            cursor: pointer;
+        }
+
+        /* Section-specific styling remains the same */
         .hero,
         .projects-section,
         .podcast-section,
@@ -121,7 +129,6 @@
             margin: 0;
             display: block;
             overflow: hidden;
-            /* No additional gradient or background here */
         }
 
         .hero {
@@ -592,18 +599,23 @@
         @media (max-width: 768px) {
             .navbar {
                 padding: 15px 20px;
-                flex-direction: column;
-                align-items: flex-start;
+                flex-wrap: wrap;
             }
 
-            .logo {
-                margin-bottom: 10px;
+            .hamburger {
+                display: block;
             }
 
             .nav-links {
+                display: none;
                 flex-direction: column;
                 width: 100%;
                 text-align: center;
+                padding: 20px 0;
+            }
+
+            .nav-links.active {
+                display: flex;
             }
 
             .nav-links a {
@@ -683,11 +695,16 @@
 
     <nav class="navbar">
         <div class="logo">Deo<span style="color: #ff0055;">|</span>xics</div>
+        <button class="hamburger">
+            <i class="fas fa-bars"></i>
+        </button>
         <div class="nav-links">
+            <div>
             <a href="#">Home</a>
             <a href="#">Content</a>
             <a href="#profile-section">About</a>
             <a href="#contact-section">Contact Us</a>
+            </div>
         </div>
     </nav>
 
@@ -783,7 +800,7 @@
         <h2 class="section-title">SOFTWARES I KNOW</h2>
         <div class="editing-container">
             <div class="center-box">
-                <img src="Deoxics Logo Png.png" alt="Logo" class="main-logo" height="150px" width="150px">
+                <img src="img/Deoxics Logo Png.png" alt="Logo" class="main-logo" height="150px" width="150px">
             </div>
 
             <div class="icons">
@@ -849,6 +866,18 @@
     </section>
 
     <script>
+        // Hamburger Menu Toggle
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+
+            hamburger.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+                hamburger.querySelector('i').classList.toggle('fa-bars');
+                hamburger.querySelector('i').classList.toggle('fa-times');
+            });
+        });
+
         // Video Play/Pause Functionality for Projects
         document.querySelectorAll('.play-button').forEach(button => {
             const video = button.closest('.project-card').querySelector('video');
