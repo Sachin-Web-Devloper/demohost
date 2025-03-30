@@ -20,7 +20,8 @@
             overflow-x: hidden;
             min-height: 100vh;
             position: relative;
-            background: linear-gradient(to right,  orange, #b00000,  #2b0058,#010002);
+            /* Updated gradient to match the image */
+            background: linear-gradient(to right, #960921, #000C7B);
             background-size: cover;
         }
         @keyframes bg {
@@ -678,13 +679,25 @@
                 font-size: 14px;
             }
 
-            .project-card, .podcast-card {
+            .project-card {
                 height: 300px;
+                animation: scroll 5s linear;
+                animation-timeline: view();
+                animation-range: 0% cover 40%;
             }
+           
 
             .icon-img {
                 width: 50px;
                 height: 50px;
+            }
+            @keyframes scroll {
+                from {
+                    scale: 0.4;
+                }
+                to {
+                    scale: 1;
+                }
             }
         }
     </style>
@@ -721,7 +734,7 @@
         <div class="projects-container">
             <div class="project-card">
                 <div class="video-container">
-                    <img src="Let Him Cook (1).jpg" alt="Thumbnail" class="thumbnail">
+                    <img src="img/Let Him Cook (1).jpg" alt="Thumbnail" class="thumbnail">
                     <video class="project-video" preload="none">
                         <source src="Videos/Let Him Cook.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -731,7 +744,7 @@
             </div>
             <div class="project-card">
                 <div class="video-container">
-                    <img src="The Future of SD Cards (1).jpg" alt="Thumbnail" class="thumbnail">
+                    <img src="img/The Future of SD Cards (1).jpg" alt="Thumbnail" class="thumbnail">
                     <video class="project-video" preload="none">
                         <source src="Videos/The Future of SD Cards.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -741,7 +754,7 @@
             </div>
             <div class="project-card">
                 <div class="video-container">
-                    <img src="My favorite Rolls-Royce (1).jpg" alt="Thumbnail" class="thumbnail">
+                    <img src="img/My favorite Rolls-Royce (1).jpg" alt="Thumbnail" class="thumbnail">
                     <video class="project-video" preload="none">
                         <source src="Videos/My favorite Rolls-Royce.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -758,7 +771,7 @@
         <div class="podcast-container">
             <div class="podcast-card">
                 <div class="video-container">
-                    <img src="Relationship The Marathi Podcast.jpg" alt="Thumbnail" class="podcast-thumbnail">
+                    <img src="img/Relationship The Marathi Podcast.jpg" alt="Thumbnail" class="podcast-thumbnail">
                     <video controls>
                         <source src="Videos/podcast1.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -767,7 +780,7 @@
             </div>
             <div class="podcast-card">
                 <div class="video-container">
-                    <img src="RoadWheelRane The Marathi Podcast.jpg" alt="Thumbnail" class="podcast-thumbnail">
+                    <img src="img/RoadWheelRane The Marathi Podcast.jpg" alt="Thumbnail" class="podcast-thumbnail">
                     <video controls>
                         <source src="Videos/podcast2.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -776,7 +789,7 @@
             </div>
             <div class="podcast-card">
                 <div class="video-container">
-                    <img src="Successful Retail Business The Marathi podcast.jpg" alt="Thumbnail" class="podcast-thumbnail">
+                    <img src="img/Successful Retail Business The Marathi podcast.jpg" alt="Thumbnail" class="podcast-thumbnail">
                     <video controls>
                         <source src="Videos/podcast3.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -785,7 +798,7 @@
             </div>
             <div class="podcast-card">
                 <div class="video-container">
-                    <img src="Exploring the Future Impact of AI on Employment Marathi Manus Podcast.jpg" alt="Thumbnail" class="podcast-thumbnail">
+                    <img src="img/Exploring the Future Impact of AI on Employment Marathi Manus Podcast.jpg" alt="Thumbnail" class="podcast-thumbnail">
                     <video controls>
                         <source src="Videos/podcast4.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -800,14 +813,14 @@
         <h2 class="section-title">SOFTWARES I KNOW</h2>
         <div class="editing-container">
             <div class="center-box">
-                <img src="Deoxics Logo Png.png" alt="Logo" class="main-logo" height="150px" width="150px">
+                <img src="img/Deoxics Logo Png.png" alt="Logo" class="main-logo" height="150px" width="150px">
             </div>
 
             <div class="icons">
-                <img src="Mocha.png" alt="Maya" class="icon-img">
-                <img src="Photoshop.png" alt="After Effects" class="icon-img">
-                <img src="After Effects.png" alt="Premiere Pro" class="icon-img">
-                <img src="Premiere Pro.png" alt="Photoshop" class="icon-img">
+                <img src="img/Mocha.png" alt="Maya" class="icon-img">
+                <img src="img/Photoshop.png" alt="After Effects" class="icon-img">
+                <img src="img/After Effects.png" alt="Premiere Pro" class="icon-img">
+                <img src="img/Premiere Pro.png" alt="Photoshop" class="icon-img">
             </div>
         </div>
     </section>
@@ -816,7 +829,7 @@
         <h2 class="section-title">Hey There, A Short Personal Message About Me</h2>
         <div class="profile-container">
             <div class="profile-image-container">
-                <img src="profileImage.jpeg" alt="Profile Image" class="profile-image">
+                <img src="img/profileImage.jpeg" alt="Profile Image" class="profile-image">
             </div>
             <div class="profile-content">
                 <h1 class="heading">Shubham Sirsikar</h1>
