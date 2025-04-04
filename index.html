@@ -20,7 +20,7 @@
             overflow-x: hidden;
             min-height: 100vh;
             position: relative;
-             background: linear-gradient(to right, #000209, #000209);
+            background: linear-gradient(to right, #000209, #000209);
             background-size: cover;
         }
         @keyframes bg {
@@ -241,7 +241,6 @@
             animation-range: entry 0% cover 40%;
         }
 
-       
         .project-card {
     width: 300px;
     height: 400px;
@@ -260,23 +259,7 @@
 }
 
 /* Rotating border effect */
-.project-card::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    padding: 3px;
-    border-radius: 15px;
-    background: linear-gradient(0deg, red, blue, green, red, pink, blue);
-    background-size: 200% 200%;
-    z-index: -1;
-    animation: border-flow 3s linear infinite;
-    -webkit-mask: 
-        linear-gradient(#fff 0 0) content-box, 
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    box-sizing: border-box;
-}
+
 
 /* Inner glass layer */
 .project-card::before {
@@ -289,16 +272,12 @@
 }
 
 /* Border animation */
-@keyframes border-flow {
-    0% {
-        background-position: 0% 0%;
-    }
-    100% {
-        background-position: 100% 100%;
-    }
-}
+
+
+
+
         .project-card:hover {
-            transform: scale(1.05) rotate(1deg);
+            transform: scale(1.05) translateY(-5px);
             box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
         }
@@ -414,7 +393,7 @@
         }
 
         .podcast-card:hover {
-             transform: scale(1.05) translateY(-5px);
+            transform: scale(1.05) translateY(-5px);
             box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
         }
@@ -733,6 +712,7 @@
                 animation: scaleUp 0.6s ease-out;
                 animation-timeline: view();
                 animation-range: entry 0% cover 40%;
+               
             }
 
             .icons {
@@ -820,7 +800,7 @@
         <div class="projects-container">
             <div class="project-card">
                 <div class="video-container">
-                    <img src="Let Him Cook (1).jpg" alt="Thumbnail" class="thumbnail">
+                    <img src="img/Let Him Cook (1).jpg" alt="Thumbnail" class="thumbnail">
                     <video class="project-video" preload="none">
                         <source src="Videos/Let Him Cook.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -830,7 +810,7 @@
             </div>
             <div class="project-card">
                 <div class="video-container">
-                    <img src="The Future of SD Cards (1).jpg" alt="Thumbnail" class="thumbnail">
+                    <img src="img/The Future of SD Cards (1).jpg" alt="Thumbnail" class="thumbnail">
                     <video class="project-video" preload="none">
                         <source src="Videos/The Future of SD Cards.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -840,7 +820,7 @@
             </div>
             <div class="project-card">
                 <div class="video-container">
-                    <img src="My favorite Rolls-Royce (1).jpg" alt="Thumbnail" class="thumbnail">
+                    <img src="img/My favorite Rolls-Royce (1).jpg" alt="Thumbnail" class="thumbnail">
                     <video class="project-video" preload="none">
                         <source src="Videos/My favorite Rolls-Royce.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -857,7 +837,7 @@
         <div class="podcast-container">
             <div class="podcast-card">
                 <div class="video-container">
-                    <img src="img/Relationship The Marathi Podcast.jpg" alt="Thumbnail" class="podcast-thumbnail">
+                    <img src="Relationship The Marathi Podcast.jpg" alt="Thumbnail" class="podcast-thumbnail">
                     <video controls>
                         <source src="Videos/podcast1.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -866,7 +846,7 @@
             </div>
             <div class="podcast-card">
                 <div class="video-container">
-                    <img src="img/RoadWheelRane The Marathi Podcast.jpg" alt="Thumbnail" class="podcast-thumbnail">
+                    <img src="RoadWheelRane The Marathi Podcast.jpg" alt="Thumbnail" class="podcast-thumbnail">
                     <video controls>
                         <source src="Videos/podcast2.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -875,7 +855,7 @@
             </div>
             <div class="podcast-card">
                 <div class="video-container">
-                    <img src="img/Successful Retail Business The Marathi podcast.jpg" alt="Thumbnail" class="podcast-thumbnail">
+                    <img src="Successful Retail Business The Marathi podcast.jpg" alt="Thumbnail" class="podcast-thumbnail">
                     <video controls>
                         <source src="Videos/podcast3.mp4" type="video/mp4">
                         Your browser does not support the video tag.
