@@ -241,33 +241,62 @@
             animation-range: entry 0% cover 40%;
         }
 
+       
         .project-card {
-            width: 300px;
-            height: 400px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            overflow: hidden;
-            animation: scaleUp 0.6s ease-out;
-            animation-timeline: view();
-            animation-range: entry 0% cover 40%;
-        }
+    width: 300px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    z-index: 0;
+}
 
-        .project-card::before {
-            content: "";
-            position: absolute;
-            inset: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-        }
+/* Rotating border effect */
+.project-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 3px;
+    border-radius: 15px;
+    background: linear-gradient(0deg, red, blue, green, red, pink, blue);
+    background-size: 200% 200%;
+    z-index: -1;
+    animation: border-flow 3s linear infinite;
+    -webkit-mask: 
+        linear-gradient(#fff 0 0) content-box, 
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    box-sizing: border-box;
+}
 
+/* Inner glass layer */
+.project-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    z-index: -2;
+}
+
+/* Border animation */
+@keyframes border-flow {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 100% 100%;
+    }
+}
         .project-card:hover {
             transform: scale(1.05) rotate(1deg);
             box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
