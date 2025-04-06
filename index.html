@@ -166,6 +166,15 @@
             overflow: hidden;
         }
 
+        /* Add padding-top to sections to account for navbar height */
+        .projects-section,
+        .podcast-section,
+        .editing-section,
+        .profile-section,
+        .contact-section {
+            padding-top: 100px; /* Adjust this value based on your navbar height */
+        }
+
         .hero {
             height: 100vh;
             display: flex;
@@ -262,42 +271,37 @@
         }
 
         .project-card {
-    width: 300px;
-    height: 400px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    overflow: hidden;
-    z-index: 0;
-}
-.weight{
-    font-weight: bold;
-}
-.fcolor{
-color: #ff0055;}
+            width: 300px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            z-index: 0;
+        }
+        .weight {
+            font-weight: bold;
+        }
+        .fcolor {
+            color: #ff0055;
+        }
 
-/* Rotating border effect */
-
-/* Inner glass layer */
-.project-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 15px;
-    background: rgba(255, 255, 255, 0.05);
-    z-index: -2;
-}
-
-
-
-
+        /* Inner glass layer */
+        .project-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            z-index: -2;
+        }
 
         .project-card:hover {
             transform: scale(1.05) translateY(-5px);
@@ -735,7 +739,6 @@ color: #ff0055;}
                 animation: scaleUp 0.6s ease-out;
                 animation-timeline: view();
                 animation-range: entry 0% cover 40%;
-               
             }
 
             .icons {
@@ -788,7 +791,6 @@ color: #ff0055;}
                 width: 50px;
                 height: 50px;
             }
-           
         }
     </style>
 </head>
@@ -811,17 +813,17 @@ color: #ff0055;}
         </div>
     </nav>
 
-    <!-- Modified hero section with new wrapper span -->
+    <!-- Hero section with "See More" button linking to project-section -->
     <section class="hero">
         <div class="hero-content">
-            <!-- Changed .typing to .typed-wrapper and wrapped the typing span -->
             <h1>Hi! I'm Shubham<br><span class="typed-wrapper"><span class="typing"></span></span></h1>
             <p>Turn your ideas into reality for creators to enhance their skills level.</p>
-            <a href="#podcast-section" class="cta-btn">See More</a>
+            <a href="#project-section" class="cta-btn">See More</a>
         </div>
     </section>
 
-    <section class="projects-section">
+    <!-- Projects section (Top Reels Edits) -->
+    <section class="projects-section" id="project-section">
         <h2 class="section-title">Top Reels Edits</h2>
         <div class="projects-container">
             <div class="project-card">
@@ -1080,7 +1082,7 @@ color: #ff0055;}
         document.getElementById('contactForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
-            emailjs.sendForm('service_587mf7y', 'template_cl5kk5u', this)
+            emailjs.sendForm('service_587mf7y', "template_cl5kk5u", this)
                 .then(
                     () => {
                         alert('Message sent successfully! We will contact you within 24 hours.');
@@ -1094,7 +1096,12 @@ color: #ff0055;}
                 );
         });
 
+        // Enhanced showSection function for navigation (optional)
         function showSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
             console.log('Navigating to section:', sectionId);
         }
 
