@@ -7,13 +7,18 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        html {
+            scroll-behavior: smooth;
+        }
+       
         body {
             font-family: Arial, sans-serif;
             color: #FFFFFF;
@@ -167,6 +172,7 @@
             align-items: center;
             justify-content: center;
             padding: 0 5%;
+            padding-top: 100px;
         }
 
         .hero-content {
@@ -189,6 +195,20 @@
             margin: 20px 0;
             color: #aaa;
             line-height: 1.6;
+        }
+
+        /* New class for the typed text wrapper */
+        .typed-wrapper {
+            color: #ff0055; /* Direct color application */
+            -webkit-text-fill-color: #ff0055; /* Override gradient */
+            display: inline-block;
+        }
+
+        /* Ensure Typed.js elements inherit the color */
+        .typed-wrapper .typed-cursor,
+        .typed-wrapper span {
+            color: inherit;
+            -webkit-text-fill-color: inherit;
         }
 
         .cta-btn {
@@ -257,6 +277,11 @@
     overflow: hidden;
     z-index: 0;
 }
+.weight{
+    font-weight: bold;
+}
+.fcolor{
+color: #ff0055;}
 
 /* Rotating border effect */
 
@@ -763,6 +788,7 @@
                 width: 50px;
                 height: 50px;
             }
+           
         }
     </style>
 </head>
@@ -785,9 +811,11 @@
         </div>
     </nav>
 
+    <!-- Modified hero section with new wrapper span -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Hi! I'm Shubham<br>Video Editor</h1>
+            <!-- Changed .typing to .typed-wrapper and wrapped the typing span -->
+            <h1>Hi! I'm Shubham<br><span class="typed-wrapper"><span class="typing"></span></span></h1>
             <p>Turn your ideas into reality for creators to enhance their skills level.</p>
             <a href="#podcast-section" class="cta-btn">See More</a>
         </div>
@@ -897,10 +925,10 @@
             </div>
             <div class="profile-content">
                 <h1 class="heading">Shubham Sirsikar</h1>
-                <p>Hey everyone,<br>
-                Just a quick note from my side. I am a Motion Designer & Video Editor.</p>
-                <p>My goal is to help brands and business owners bring their ideas to life through impactful and strategic video content. Rather than relying on a one-off viral hit, I focus on crafting content formats that are both effective and easy to replicate, helping you establish a consistent visual style and recognizable brand identity.</p>
-                <p>In addition, I actively create content on platforms like YouTube and Instagram.</p>
+                <p class="weight">Hey everyone,<br>
+                  Just a quick note from my side. I am a Motion Designer & Video Editor.</p>
+                <p class="weight">My goal is to help brands and business owners bring their ideas to life through impactful and strategic video content. Rather than relying on a one-off viral hit, I focus on crafting content formats that are both effective and easy to replicate, helping you establish a consistent visual style and recognizable brand identity.</p>
+                <p class="weight">In addition, I actively create content on platforms like <a href="https://www.youtube.com/@Deoxics" class="fcolor">YouTube</a> and <a href="https://www.instagram.com/deoxics" class="fcolor">Instagram.</a></p>
             </div>
         </div>
     </section>
@@ -931,9 +959,7 @@
                     <input type="tel" id="phone" name="phone" placeholder="Type Your Phone" required>
                 
                     <label for="inquiry">Your Inquiry / Message</label>
-                    <textarea id="inquiry" 
-   
-name="message" placeholder="Type Your Message" required></textarea>
+                    <textarea id="inquiry" name="message" placeholder="Type Your Message" required></textarea>
                 
                     <button type="submit">Submit Request</button>
                 </form>
@@ -1071,6 +1097,14 @@ name="message" placeholder="Type Your Message" required></textarea>
         function showSection(sectionId) {
             console.log('Navigating to section:', sectionId);
         }
+
+        // Simplified Typed.js configuration
+        var typed = new Typed(".typing", {
+            strings: ["Video Editor"],
+            typeSpeed: 100,
+            backSpeed: 60,
+            loop: true
+        });
     </script>
 </body>
 </html>
