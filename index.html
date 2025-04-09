@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <!-- Vanta.js Dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.birds.min.js"></script>
 
     <style>
         * {
@@ -25,8 +28,15 @@
             overflow-x: hidden;
             min-height: 100vh;
             position: relative;
-            background: linear-gradient(to right, #000209, #000209);
-            background-size: cover;
+            /* Removed static background to let Vanta.js take over */
+        }
+        #vanta-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2; /* Behind all content */
         }
         @keyframes bg {
             0% { background-position: 0% 50%; }
@@ -44,14 +54,14 @@
             background: url('https://www.transparenttextures.com/patterns/noisy.png');
             opacity: 0.1;
             pointer-events: none;
-            z-index: -1;
+            z-index: -1; /* Above Vanta.js but below content */
         }
 
         .parallax-bg {
             position: fixed;
             width: 100%;
             height: 100%;
-            z-index: -2;
+            z-index: -1; /* Adjusted to sit above Vanta.js */
         }
 
         .gradient-layer-1 {
@@ -87,6 +97,7 @@
         .nav-links {
             display: flex;
             gap: 25px;
+            align-items: center;
         }
 
         .nav-links.active {
@@ -105,6 +116,43 @@
 
         .nav-links a:hover {
             background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Dropdown Styles */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            min-width: 160px;
+            border-radius: 8px;
+            z-index: 1001;
+            top: 100%;
+            left: 0;
+            padding: 10px 0;
+        }
+
+        .dropdown-content a,
+        .dropdown-content span {
+            color: #FFFFFF;
+            padding: 10px 20px;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .dropdown-content a:hover,
+        .dropdown-content span:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
         }
 
         .hamburger {
@@ -166,13 +214,12 @@
             overflow: hidden;
         }
 
-        /* Add padding-top to sections to account for navbar height */
         .projects-section,
         .podcast-section,
         .editing-section,
         .profile-section,
         .contact-section {
-            padding-top: 100px; /* Adjust this value based on your navbar height */
+            padding-top: 100px;
         }
 
         .hero {
@@ -206,18 +253,17 @@
             line-height: 1.6;
         }
 
-        /* New class for the typed text wrapper */
         .typed-wrapper {
-            color: #ff0055; /* Direct color application */
-            -webkit-text-fill-color: #ff0055; /* Override gradient */
+            color: #ff0055;
+            -webkit-text-fill-color: #ff0055;
             display: inline-block;
         }
 
-        /* Ensure Typed.js elements inherit the color */
         .typed-wrapper .typed-cursor,
         .typed-wrapper span {
             color: inherit;
             -webkit-text-fill-color: inherit;
+            font-size: 58px;
         }
 
         .cta-btn {
@@ -252,7 +298,6 @@
             animation-range: entry 0% cover 40%;
         }
 
-        /* Projects Section (Top Reels Edits) */
         .projects-section {
             animation: fadeInUp 1s ease-out;
             animation-timeline: view();
@@ -293,7 +338,6 @@
             color: #ff0055;
         }
 
-        /* Inner glass layer */
         .project-card::before {
             content: "";
             position: absolute;
@@ -382,7 +426,6 @@
             100% { transform: scale(1.5); opacity: 0; }
         }
 
-        /* Podcast Section */
         .podcast-section {
             animation: fadeInUp 1s ease-out;
             animation-timeline: view();
@@ -462,7 +505,6 @@
             opacity: 0;
         }
 
-        /* Editing Section (SOFTWARES I KNOW) */
         .editing-section {
             animation: fadeInUp 1s ease-out;
             animation-timeline: view();
@@ -527,7 +569,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Profile Section */
         .profile-container {
             display: flex;
             justify-content: center;
@@ -582,7 +623,6 @@
             margin-bottom: 15px;
         }
 
-        /* Contact Section */
         .contact-container {
             display: flex;
             flex-wrap: wrap;
@@ -698,7 +738,6 @@
             font-size: 0.9em;
         }
 
-        /* Media Queries */
         @media (max-width: 768px) {
             .navbar {
                 padding: 15px 20px;
@@ -715,15 +754,38 @@
                 width: 100%;
                 text-align: center;
                 padding: 20px 0;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                background: rgba(255, 255, 255, 0.15);
+                backdrop-filter: blur(10px);
             }
 
             .nav-links.active {
                 display: flex;
+                flex-direction: column;
             }
 
             .nav-links a {
                 width: 100%;
-                padding: 10px 0;
+                padding: 15px 0;
+                font-size: 18px;
+            }
+
+            .dropdown-content {
+                position: static;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 0;
+                padding: 0;
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: none; /* Disable hover on mobile */
+            }
+
+            .dropdown.active .dropdown-content {
+                display: block; /* Show when active on mobile */
             }
 
             .hero {
@@ -795,6 +857,8 @@
     </style>
 </head>
 <body>
+    <!-- Vanta.js Background Container -->
+    <div id="vanta-bg"></div>
     <div class="parallax-bg gradient-layer-1"></div>
     <div class="parallax-bg gradient-layer-2"></div>
 
@@ -804,16 +868,25 @@
             <i class="fas fa-bars"></i>
         </button>
         <div class="nav-links">
-            <div>
             <a href="#">Home</a>
-            <a href="#">Content</a>
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle">Servicess</a>
+                <div class="dropdown-content">
+                    <a href="Pages/motion.html">Motion</a>
+                    <a href="Pages/podcast.html">Podcast</a>
+                    <a href="Pages/reel.html">Reel</a>
+                    <a href="Pages/cgi.html">CGI</a>
+                    <a href="Pages/saloon.html">Salon</a>
+                    <a href="Pages/resturant.html">Restaurant</a>
+                    <a href="Pages/caredit.html">Car Edits</a>
+                    <a href="Pages/domainhosting.html">Domain-Hosting</a>
+                </div>
+            </div>
             <a href="#profile-section">About</a>
             <a href="#contact-section">Contact Us</a>
-            </div>
         </div>
     </nav>
 
-    <!-- Hero section with "See More" button linking to project-section -->
     <section class="hero">
         <div class="hero-content">
             <h1>Hi! I'm Shubham<br><span class="typed-wrapper"><span class="typing"></span></span></h1>
@@ -822,13 +895,12 @@
         </div>
     </section>
 
-    <!-- Projects section (Top Reels Edits) -->
     <section class="projects-section" id="project-section">
         <h2 class="section-title">Top Reels Edits</h2>
         <div class="projects-container">
             <div class="project-card">
                 <div class="video-container">
-                    <img src="Let Him Cook (1).jpg" alt="Thumbnail" class="thumbnail">
+                    <img src="img/Let Him Cook (1).jpg" alt="Thumbnail" class="thumbnail">
                     <video class="project-video" preload="none">
                         <source src="Videos/Let Him Cook.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -838,7 +910,7 @@
             </div>
             <div class="project-card">
                 <div class="video-container">
-                    <img src="The Future of SD Cards (1).jpg" alt="Thumbnail" class="thumbnail">
+                    <img src="img/The Future of SD Cards (1).jpg" alt="Thumbnail" class="thumbnail">
                     <video class="project-video" preload="none">
                         <source src="Videos/The Future of SD Cards.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -848,7 +920,7 @@
             </div>
             <div class="project-card">
                 <div class="video-container">
-                    <img src="My favorite Rolls-Royce (1).jpg" alt="Thumbnail" class="thumbnail">
+                    <img src="img/My favorite Rolls-Royce (1).jpg" alt="Thumbnail" class="thumbnail">
                     <video class="project-video" preload="none">
                         <source src="Videos/My favorite Rolls-Royce.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -865,7 +937,7 @@
         <div class="podcast-container">
             <div class="podcast-card">
                 <div class="video-container">
-                    <img src="Relationship The Marathi Podcast.jpg" alt="Thumbnail" class="podcast-thumbnail">
+                    <img src="img/Relationship The Marathi Podcast.jpg" alt="Thumbnail" class="podcast-thumbnail">
                     <video controls>
                         <source src="Videos/podcast1.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -874,7 +946,7 @@
             </div>
             <div class="podcast-card">
                 <div class="video-container">
-                    <img src="RoadWheelRane� The Marathi Podcast.jpg" alt="Thumbnail" class="podcast-thumbnail">
+                    <img src="img/RoadWheelRane The Marathi Podcast.jpg" alt="Thumbnail" class="podcast-thumbnail">
                     <video controls>
                         <source src="Videos/podcast2.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -883,7 +955,7 @@
             </div>
             <div class="podcast-card">
                 <div class="video-container">
-                    <img src="Successful Retail Business The Marathi podcast.jpg" alt="Thumbnail" class="podcast-thumbnail">
+                    <img src="img/Successful Retail Business The Marathi podcast.jpg" alt="Thumbnail" class="podcast-thumbnail">
                     <video controls>
                         <source src="Videos/podcast3.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -892,7 +964,7 @@
             </div>
             <div class="podcast-card">
                 <div class="video-container">
-                    <img src="Exploring the Future Impact of AI on Employment  Marathi Manus Podcast.jpg" alt="Thumbnail" class="podcast-thumbnail">
+                    <img src="img/Exploring the Future Impact of AI on Employment Marathi Manus Podcast.jpg" alt="Thumbnail" class="podcast-thumbnail">
                     <video controls>
                         <source src="Videos/podcast4.mp4" type="video/mp4">
                         Your browser does not support the video tag.
@@ -906,13 +978,11 @@
     <section class="editing-section">
         <h2 class="section-title">SOFTWARES I KNOW</h2>
         <div class="editing-container">
-            
-
             <div class="icons">
-                <img src="Mocha.png" alt="Maya" class="icon-img">
-                <img src="Photoshop.png" alt="After Effects" class="icon-img">
-                <img src="After Effects.png" alt="Premiere Pro" class="icon-img">
-                <img src="Premiere Pro.png" alt="Photoshop" class="icon-img">
+                <img src="img/Mocha.png" alt="Maya" class="icon-img">
+                <img src="img/Photoshop.png" alt="After Effects" class="icon-img">
+                <img src="img/After Effects.png" alt="Premiere Pro" class="icon-img">
+                <img src="img/Premiere Pro.png" alt="Photoshop" class="icon-img">
             </div>
         </div>
     </section>
@@ -921,7 +991,7 @@
         <h2 class="section-title">About Me</h2>
         <div class="profile-container">
             <div class="profile-image-container">
-                <img src="profileImage.jpeg" alt="Profile Image" class="profile-image">
+                <img src="img/profileImage.jpeg" alt="Profile Image" class="profile-image">
             </div>
             <div class="profile-content">
                 <h1 class="heading">Shubham Sirsikar</h1>
@@ -971,6 +1041,28 @@
     </section>
 
     <script>
+        // Initialize Vanta.js Birds effect
+        VANTA.BIRDS({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            backgroundColor: 0x000209, // Matches your original gradient
+            color1: 0xff0055, // Pink accent from your theme
+            color2: 0x888888, // Gray from your gradient
+            birdSize: 1.5,
+            wingSpan: 30.00,
+            speedLimit: 5.00,
+            separation: 50.00,
+            alignment: 20.00,
+            cohesion: 20.00,
+            quantity: 3.00
+        });
+
         // Hamburger Menu Toggle
         document.addEventListener('DOMContentLoaded', () => {
             const hamburger = document.querySelector('.hamburger');
@@ -980,6 +1072,16 @@
                 navLinks.classList.toggle('active');
                 hamburger.querySelector('i').classList.toggle('fa-bars');
                 hamburger.querySelector('i').classList.toggle('fa-times');
+            });
+
+            // Dropdown toggle for mobile
+            const dropdown = document.querySelector('.dropdown');
+            const dropdownToggle = document.querySelector('.dropdown-toggle');
+            dropdownToggle.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                }
             });
         });
 
@@ -1094,7 +1196,7 @@
                 );
         });
 
-        // Enhanced showSection function for navigation (optional)
+        // Enhanced showSection function for navigation
         function showSection(sectionId) {
             const section = document.getElementById(sectionId);
             if (section) {
@@ -1112,4 +1214,4 @@
         });
     </script>
 </body>
-</html>  
+</html>
