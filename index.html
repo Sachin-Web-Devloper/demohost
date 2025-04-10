@@ -27,7 +27,7 @@
             overflow-x: hidden;
             min-height: 100vh;
             position: relative;
-            background: #000; /* Fallback background for other sections */
+            background: #000;
         }
         
         /* Vanta.js specific styling */
@@ -231,7 +231,7 @@
             justify-content: center;
             padding: 0 5%;
             padding-top: 100px;
-            position: relative; /* Added to contain the absolute Vanta background */
+            position: relative;
         }
 
         .hero-content {
@@ -784,17 +784,27 @@
             }
 
             .dropdown:hover .dropdown-content {
-                display: none; /* Disable hover on mobile */
+                display: none;
             }
 
             .dropdown.active .dropdown-content {
-                display: block; /* Show when active on mobile */
+                display: block;
             }
 
             .hero {
                 padding: 0 5%;
                 justify-content: center;
                 height: 100vh;
+                min-height: 400px; /* Minimum height for smaller screens */
+            }
+
+            .hero-content h1 {
+                font-size: clamp(40px, 8vw, 56px); /* Adjust font size for mobile */
+            }
+
+            .typed-wrapper .typed-cursor,
+            .typed-wrapper span {
+                font-size: clamp(30px, 6vw, 58px); /* Adjust typed text size */
             }
 
             .project-card, .podcast-card {
@@ -823,7 +833,7 @@
             }
 
             .profile-image-container {
-                margin-right: 0;
+                margin-robot: 0;
             }
 
             .social-icons {
@@ -855,6 +865,15 @@
             .icon-img {
                 width: 50px;
                 height: 50px;
+            }
+
+            .hero-content h1 {
+                font-size: clamp(32px, 10vw, 40px);
+            }
+
+            .typed-wrapper .typed-cursor,
+            .typed-wrapper span {
+                font-size: clamp(24px, 8vw, 30px);
             }
         }
     </style>
@@ -889,7 +908,6 @@
     </nav>
 
     <section class="hero">
-        <!-- Vanta.js Background Container moved inside hero section -->
         <div id="vanta-bg"></div>
         <div class="hero-content">
             <h1>Hi! I'm Shubham<br><span class="typed-wrapper"><span class="typing"></span></span></h1>
@@ -1044,19 +1062,42 @@
     </section>
 
     <script>
-        // Initialize Vanta.js Globe effect only for hero section
-        VANTA.GLOBE({
+        // Initialize Vanta.js Globe effect with responsive settings
+        let vantaEffect = VANTA.GLOBE({
             el: "#vanta-bg",
             mouseControls: true,
-  touchControls: true,
-  gyroControls: false,
-  minHeight: 200.00,
-  minWidth: 200.00,
-  scale: 1.00,
-  scaleMobile: 1.00,
-  color: 0xf71262,
-  backgroundColor: 0x0
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.0,
+            scaleMobile: 0.7, // Reduced scale for mobile
+            size: 1.0, // Controls globe point size
+            color: 0xf71262,
+            backgroundColor: 0x0
         });
+
+        // Function to update Vanta settings based on screen size
+        function updateVantaSettings() {
+            if (window.innerWidth <= 768) {
+                vantaEffect.setOptions({
+                    scale: 0.7,
+                    size: 0.8,
+                    spacing: 20
+                });
+            } else {
+                vantaEffect.setOptions({
+                    scale: 1.0,
+                    size: 1.0,
+                    spacing: 30
+                });
+            }
+            vantaEffect.resize();
+        }
+
+        // Initial call and event listener for resize
+        window.addEventListener('resize', updateVantaSettings);
+        updateVantaSettings();
 
         // Hamburger Menu Toggle
         document.addEventListener('DOMContentLoaded', () => {
@@ -1069,7 +1110,6 @@
                 hamburger.querySelector('i').classList.toggle('fa-times');
             });
 
-            // Dropdown toggle for mobile
             const dropdown = document.querySelector('.dropdown');
             const dropdownToggle = document.querySelector('.dropdown-toggle');
             dropdownToggle.addEventListener('click', (e) => {
